@@ -1,6 +1,12 @@
 -- =========================================================================
 -- SYSTEM: Football Ticket Booking System Database Setup Template
 -- DESCRIPTION: Pseudo-DDL Template for Table Creation & Data Insertion
+
+
+-- DROP TABLES IF THEY ALREADY EXIST TO PREVENT CONFLICTS WITH CONSTRAINTS
+DROP TABLE IF EXISTS Bookings;
+DROP TABLE IF EXISTS Matches;
+DROP TABLE IF EXISTS Users;
 -- =========================================================================
 -- 1. CREATE USERS TABLE
 -- =========================================================================
@@ -192,6 +198,7 @@ WHERE
 
 
     -- Query 4: Retrieve match booking details along with the User's full name and the scheduled Match fixture teams.
+
     b.booking_id, 
     u.full_name, 
     m.fixture, 
@@ -227,3 +234,15 @@ FROM
     Bookings
 WHERE 
     total_cost > (SELECT AVG(total_cost) FROM Bookings);
+
+
+    -- Query 7: Retrieve the top 2 most expensive matches sorted by base ticket price, skipping the absolute highest premium match.
+SELECT 
+    match_id, 
+    fixture, 
+    base_ticket_price
+FROM 
+    Matches
+ORDER BY 
+    base_ticket_price DESC
+LIMIT 2 OFFSET 1;
