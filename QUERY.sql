@@ -15,3 +15,16 @@ CREATE TABLE Users (
     CONSTRAINT uq_users_email UNIQUE (email),
     CONSTRAINT chk_users_role CHECK (role IN ('Ticket Manager', 'Football Fan'))
 );
+-- =========================================================================
+-- 2. CREATE MATCHES TABLE
+-- =========================================================================
+CREATE TABLE Matches (
+    match_id INT,
+    fixture VARCHAR(150) NOT NULL,
+    tournament_category VARCHAR(100) NOT NULL,
+    base_ticket_price DECIMAL(10, 2) NOT NULL,
+    match_status VARCHAR(50) NOT NULL,
+    CONSTRAINT pk_matches PRIMARY KEY (match_id),
+    CONSTRAINT chk_matches_price CHECK (base_ticket_price >= 0),
+    CONSTRAINT chk_matches_status CHECK (match_status IN ('Available', 'Selling Fast', 'Sold Out', 'Postponed'))
+);
